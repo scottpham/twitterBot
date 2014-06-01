@@ -18,19 +18,23 @@ def tweet(data, columns, text_inserts):
     
     for row in data:
         text = ""
+        text_insert_counter = 0
+        column_counter = 0
         for num in range(text_segment_length):
-            if columns.get(str(num)):
-                text += row[columns[str(num)]]
+            if num % 2 == 0:
+                text += text_inserts[text_insert_counter]
+                text_insert_counter += 1
             else:
-                text += text_inserts[str(num)]
+                text += row[columns[column_counter]]
+                column_counter += 1
 
         twitter.update_status(status=text)
         time.sleep(5)
 
 def main():
     dataObject = [{'date': 'May 5', 'place': 'San Francisco', 'magnitude': '4.5'}, {'date': 'Jan 1', 'place': 'Taipei', 'magnitude': '6'}]
-    columns = {'1':'date', '3':'magnitude', '5':'place'};
-    textInserts = {'0':'An earthquake occurred on the date of ', '2':', at a magnitude of ', '4':', and in the location of '};
+    columns = ['date', 'magnitude', 'place']
+    textInserts = ['An earthquake occurred on the date of ', ', at a magnitude of ', ', and in the location of ']
 
     tweet(dataObject, columns, textInserts)
     print "tweeted successfully"
