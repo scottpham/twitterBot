@@ -60,9 +60,11 @@ dfn {
   font-style: italic;
 }
 h1 {
-  margin: .67em 0;
-  font-size: 2em;
-  color: #A0BABE;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 50px;
+  color: #69BFAF !important;
+  font-family: 'Press Start 2P', cursive !important;
 }
 mark {
   color: #000;
@@ -274,10 +276,10 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-size: 16px;
   line-height: 1.42857143;
-  color: #333;
+  color: #F26D75;
   background-color: #fff;
 }
 input,
@@ -468,6 +470,7 @@ h6,
 }
 p {
   margin: 0 0 10px;
+  color: #fff !important;
 }
 .lead {
   margin-bottom: 20px;
@@ -1691,7 +1694,7 @@ output {
 }
 .form-control {
   display: block;
-  width: 100%;
+  width: 91%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
@@ -2049,9 +2052,9 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #333;
-  background-color: #ebebeb;
-  border-color: #adadad;
+  color: #fff;
+  background-color: #F26D75;
+  border-color: #F26D75;
 }
 .btn-default:active,
 .btn-default.active,

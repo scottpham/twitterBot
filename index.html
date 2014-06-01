@@ -13,7 +13,10 @@ To change this template use Tools | Templates.
 	}
 		
 	</style>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/botmaker.css">
+	<link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.min.js"></script>
@@ -48,12 +51,12 @@ To change this template use Tools | Templates.
 	<div class="container">
 			<div class="col-md-7 col-md-offset-3">
 				
-				<h1>BOTMAKER</h1>
-				<p>Twitter Bots are fun and easy. Start with a Google spreadsheet.</p>
-				<form role=form id = "form1">
-					<div class = "form-group">
+				<h1>BOTMAKER<span id="logo"><img src="css/botmaker-logo.png"></span></h1>
+				<p>Twitter bots are fun and easy! All you need to get started is a Google spreadsheet.</p>
+				<form role=form id="form1">
+					<div class= "form-group">
 						<label>"Key" of Google Spreadsheet</label><br/>
-						<input type = "text" class="form-control" placeholder="www.googs.com" value = 1rAYQnxVwRazvfeDWUjoGBfxkZpakRPkz6-g7FENFXZk name="url" id="url" />
+						<input type= "text" class="form-control" placeholder="www.googs.com" value = 1rAYQnxVwRazvfeDWUjoGBfxkZpakRPkz6-g7FENFXZk name="url" id="url" />
 						<button type="button" class="btn btn-lg btn-default" onclick = "init()">Set the Key</button>
 						<br/>
 					</div>
@@ -132,6 +135,5 @@ To change this template use Tools | Templates.
 	</script>
 	</div>		
 </div>
-
 </body>
 </html>
