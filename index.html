@@ -109,8 +109,7 @@ To change this template use Tools | Templates.
 	//generates preview tweet
 	twitterBot.tweetPreview = function () {
 		var tweetPreviewString = document.forms.form2.tweet.value;
-		this.tweetPreviewString = tweetPreviewString;
-		console.log("preview string = " + tweetPreviewString);
+		this.tweetPreviewString = tweetPreviewString; //raw input of the twitter template box
 		var myRe = /{{(.*?)}}/g;
 		myArray = tweetPreviewString.match(myRe);
 		this.fixedArray = this.fixArray(myArray);
@@ -127,14 +126,21 @@ To change this template use Tools | Templates.
 			var cleanTweetString = this.tweetPreviewString.split(myRe);
 			this.cleanTweetArray = $(cleanTweetString).not(this.fixedArray).get();
 			this.cleanTweetArray = jQuery.grep(this.cleanTweetArray, function(n, i){
-				return (n !== "" && n != null && n != " ");})
-			 }
-//		object = {}
-//		object[counter]=
-//			counter++
-	
-	
-	
+				return (n !== "" && n != null && n != " ");}) //clean array of plain text twitter stuff
+			console.log("Array of column names = " + this.fixedArray); //goes to python
+			console.log("type of fixed array =" + typeof this.fixedArray);
+			console.log("Array of plain text strings = " + this.cleanTweetArray); //goes to python
+			console.log("Tweet Array before I fuck with it: " + cleanTweetString); //array of both col names and tweets
+			
+		this.columns = this.fixedArray;
+		this.textInserts = this.cleanTweetArray;
+			
+	/**	for (var counter = 0; counter <= cleanTweetString.length;) {
+			this.cleanTweetArray[counter] ? this.textInserts[counter] = this.cleanTweetArray[counter]: null;
+			counter++;	
+			this.fixedArray[counter] ? this.columns[counter] = this.fixedArray[counter]: null;
+	 } **/
+	}
 	
 	</script>
 	</div>		
