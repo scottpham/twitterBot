@@ -81,7 +81,7 @@ To change this template use Tools | Templates.
 			<div class ="form-group">	
 				<label>Preview</label>	
 			<div id = "tweetPreview" class="form-control"></div>	
-			<button type="button" class="btn" name = "tweetPreviewButton" id = "tweetPreviewButton">Final Submit</button>
+			<button type="button" class="btn" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.sendToPython()">Final Submit</button>
 			</div>
 		</form>
 	
@@ -141,28 +141,6 @@ To change this template use Tools | Templates.
 			this.fixedArray[counter] ? this.columns[counter] = this.fixedArray[counter]: null;
 	 } **/
 	}
-
-
-	 function tweet(dataObject, columns, textInserts) {
-	  console.log(dataObject);
-	  console.log(columns);
-	  console.log(textInserts);
-	  $.ajax({
-	  url: "/",
-	  type: "POST",
-	  contentType: "application/json",
-	  data: JSON.stringify({"data":dataObject, "columns":columns, "text_inserts":textInserts})
-	  }).done(function(){
-	    alert("Bot creation completed");
-	  });
-	}
-
-	$("#tweetPreviewButton").click(function() {
-		twitterBot.sendToPython
-		tweet(testData, columns, textInserts);
-	});
-
-
 	
 	</script>
 	</div>		

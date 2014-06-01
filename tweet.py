@@ -22,14 +22,15 @@ def tweet(data, columns, text_inserts):
         column_counter = 0
         for num in range(text_segment_length):
             if num % 2 == 0:
-                text += text_inserts[text_insert_counter]
+                text += str(text_inserts[text_insert_counter])
                 text_insert_counter += 1
             else:
-                text += row[columns[column_counter]]
+                print row[columns[column_counter]]
+                text += str(row[columns[column_counter]])
                 column_counter += 1
 
         twitter.update_status(status=text)
-        time.sleep(5)
+        time.sleep(2)
 
 def main():
     dataObject = [{'date': 'May 5', 'place': 'San Francisco', 'magnitude': '4.5'}, {'date': 'Jan 1', 'place': 'Taipei', 'magnitude': '6'}]

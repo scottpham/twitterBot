@@ -11,7 +11,14 @@ To change this template use Tools | Templates.
 		height: 100px;
 		border: 1px solid gray;
 	}
-		
+
+	#tweetPreview2 {
+	width: 100%px;
+	height: 100px;
+	border: 1px solid gray;
+	}
+				
+
 	</style>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -28,6 +35,7 @@ To change this template use Tools | Templates.
 	var twitterBot = {};	
 	var testData = null;
 			
+{% raw %}
 		function getColNames() {
 			var colNames = Object.keys(testData[1]);
 			$.each(colNames, function (index, value){
@@ -35,7 +43,7 @@ To change this template use Tools | Templates.
 			}	
 			)
 		}
-			
+{% endraw %}			
 		
 			function init() {
   	Tabletop.init( { key: document.forms.form1.url.value,
@@ -80,8 +88,8 @@ To change this template use Tools | Templates.
 		<form role = form id = "form3">	
 			<div class ="form-group">	
 				<label>Preview</label>	
-			<div id = "tweetPreview" class="form-control"></div>	
-			<button type="button" class="btn" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.sendToPython()">Final Submit</button>
+			<div id = "tweetPreview2" class="form-control"></div>	
+			<button type="button" class="btn" name = "tweetPreviewButton" id = "submitButton">Final Submit</button>
 			</div>
 		</form>
 	
@@ -110,19 +118,21 @@ To change this template use Tools | Templates.
 	twitterBot.tweetPreview = function () {
 		var tweetPreviewString = document.forms.form2.tweet.value;
 		this.tweetPreviewString = tweetPreviewString; //raw input of the twitter template box
-		var myRe = /{{(.*?)}}/g;
+		{% raw %} var myRe = /{{.*?}}/g; {% endraw %}
 		myArray = tweetPreviewString.match(myRe);
 		this.fixedArray = this.fixArray(myArray);
 		$.each(this.fixedArray, function(index, value){
-			tweetPreviewString = tweetPreviewString.replace("{{" + value + "}}", testData[1][value]);
-								   })
-		$("#tweetPreview").html(tweetPreviewString); }
-		
-	
+			console.log(tweetPreviewString);
+{% raw %}			tweetPreviewString = tweetPreviewString.replace("{{" + value + "}}", testData[1][value]); {% endraw %}
+		console.log(testData[1][value]);
+								   });
+		console.log(tweetPreviewString);
+		$("#tweetPreview2").html(tweetPreviewString); }
+
 		//generates clean lists for python
 		twitterBot.sendToPython = function (){ 
 			x = this.fixedArray; //clean array of dict keys, send this to python it's good
-			var myRe = /{{(.*?)}}/g;
+			{% raw %} var myRe = /{{(.*?)}}/g; {% endraw %}
 			var cleanTweetString = this.tweetPreviewString.split(myRe);
 			this.cleanTweetArray = $(cleanTweetString).not(this.fixedArray).get();
 			this.cleanTweetArray = jQuery.grep(this.cleanTweetArray, function(n, i){
@@ -141,6 +151,29 @@ To change this template use Tools | Templates.
 			this.fixedArray[counter] ? this.columns[counter] = this.fixedArray[counter]: null;
 	 } **/
 	}
+
+
+	 function tweet(dataObject, columns, textInserts) {
+	  $.ajax({
+	  url: "/",
+	  type: "POST",
+	  contentType: "application/json",
+	  data: JSON.stringify({"data":dataObject, "columns":columns, "text_inserts":textInserts})
+	  }).done(function(){
+	    alert("Bot creation completed");
+	  });
+	}
+
+	$("#submitButton").click(function() {
+		twitterBot.sendToPython();
+		var columns = twitterBot.columns;
+		var textInserts = twitterBot.textInserts; 
+		console.log(testData);
+		console.log(twitterBot.columns);
+		console.log(twitterBot.textInserts);
+		tweet(testData, columns, textInserts);
+	});
+
 	
 	</script>
 	</div>		
