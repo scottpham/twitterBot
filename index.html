@@ -5,9 +5,7 @@ To change this template use Tools | Templates.
 <html>
 <head>
 	<style>
-	html, body {
-		background: black;
-	}
+
 	#tweetPreview {
 		width: 100%px;
 		height: 100px;
@@ -27,12 +25,25 @@ To change this template use Tools | Templates.
 	
 	
 	<script>		
-		
+	var twitterBot = {};	
 	var testData = null;
+			
+		function getColNames() {
+			var colNames = Object.keys(testData[1]);
+			$.each(colNames, function (index, value){
+				$("#tweet").append("{{" + value + "}} ");
+			}	
+			)
+		}
+			
 		
 			function init() {
   	Tabletop.init( { key: document.forms.form1.url.value,
-                   callback: function(data, tabletop) { testData = data; console.log("var testData is available") },
+                   callback: function(data, tabletop) { 
+					   testData = data; 
+					   getColNames(); 
+					   console.log("var testData is available") 
+				   },
 				  simpleSheet: true }) }
 		
 		//TODO: testData to amy
@@ -49,78 +60,79 @@ To change this template use Tools | Templates.
 				<form role=form id = "form1">
 					<div class = "form-group">
 						<label >"Key" of Google Spreadsheet</label><br/>
-						<input type = "text" class="form-control" placeholder="www.googs.com" name="url" id="url" />
+						<input type = "text" class="form-control" placeholder="www.googs.com" value = 1rAYQnxVwRazvfeDWUjoGBfxkZpakRPkz6-g7FENFXZk name="url" id="url" />
 						<button type="button" class="btn" onclick = "init()">Set the Key</button>
 						<br/>
 					</div>
 				</form>
 				
-				
-		<form role = form id = "form3">
-			<div class = "form-group">
-				<label>Column Name 1</label>
-				<input type = "text" class="form-control" placeholder="columnname" name = "column1" id = "column1" SIZE=30 /> <br />
-				<label>Column Name 2</label>
-				<input type = "text" class="form-control" placeholder="columnname" name = "column2" id = "column2" SIZE=30 /> <br />
-				<label>Column Name 3</label>
-				<input type = "text" class="form-control" placeholder="columnname" name = "column3" id = "column3" SIZE=30 /> <br />
-				<button type ="button" class = "btn" onclick="twitterBot.setColNames()">
-					Set Column Names
-				</button>
-				
-			</div>		
-			
-		</form>		
-				
-				
+		
 				
 		<form role = form id = "form2">
 			<div class ="form-group">
 			<label >Text of Tweet</label><br/>
 			<textarea class="form-control" ROWS=6 COLS=70 name = "tweet" id = "tweet"></textarea>
-			<button type="button" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button>
+			<button type="button" class="btn" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button><br/>
 			</div>
-			
-		<label>Preview</label>	
-			
-		<div id = "tweetPreview" class="form-control">
-			
-			</div>
-			
-			
 		</form>
+	
+		
+		<form role = form id = "form3">	
+			<div class ="form-group">	
+				<label>Preview</label>	
+			<div id = "tweetPreview" class="form-control"></div>	
+			<button type="button" class="btn" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.sendToPython()">Final Submit</button>
+			</div>
+		</form>
+	
+			
+	
 
 		
 				
 				
 			
 	<script>
-	console.log("Column 1 = " + document.forms.form3.column1.value);	
 	
-	var twitterBot = {};
-	//columns into usable data
-twitterBot.setColNames =	function (){
-		this.column1 = document.forms.form3.column1.value;
-		this.column1RowValue = testData[1][this.column1];
-		$("#tweet").append("{{" + this.column1 + "}}");
-	
-		this.column2 = document.forms.form3.column2.value;
-		this.column2RowValue = testData[1][this.column2];
-		$("#tweet").append("{{" + this.column2 + "}}");
-	
-		this.column3 = document.forms.form3.column3.value;
-		this.column3RowValue = testData[1][this.column3];
-		$("#tweet").append("{{" + this.column3 + "}}");
+	//removes curly braces from array
+	twitterBot.fixArray = function(myArray) {
+		var fixedArray = [];
+		$.each(myArray, function (index, value){
+			len = value.length;
+			var x = myArray[index].replace(value, value.slice(2,len-2));
+			fixedArray.push(x);
+			} )
+		console.log("fixed array = " + fixedArray);
+		return fixedArray;	
 	}
 	
-	//create preview of tweet
+	//generates preview tweet
 	twitterBot.tweetPreview = function () {
 		var tweetPreviewString = document.forms.form2.tweet.value;
-		tweetPreviewString = tweetPreviewString.replace("{{" + this.column1 + "}}", this.column1RowValue)
-			.replace("{{" + this.column2 + "}}", this.column2RowValue)
-			.replace("{{" + this.column3 + "}}", this.column3RowValue);
-		$("#tweetPreview").html(tweetPreviewString);
-	}
+		this.tweetPreviewString = tweetPreviewString;
+		console.log("preview string = " + tweetPreviewString);
+		var myRe = /{{(.*?)}}/g;
+		myArray = tweetPreviewString.match(myRe);
+		this.fixedArray = this.fixArray(myArray);
+		$.each(this.fixedArray, function(index, value){
+			tweetPreviewString = tweetPreviewString.replace("{{" + value + "}}", testData[1][value]);
+								   })
+		$("#tweetPreview").html(tweetPreviewString); }
+		
+	
+		//generates clean lists for python
+		twitterBot.sendToPython = function (){ 
+			x = this.fixedArray; //clean array of dict keys, send this to python it's good
+			var myRe = /{{(.*?)}}/g;
+			var cleanTweetString = this.tweetPreviewString.split(myRe);
+			this.cleanTweetArray = $(cleanTweetString).not(this.fixedArray).get();
+			this.cleanTweetArray = jQuery.grep(this.cleanTweetArray, function(n, i){
+				return (n !== "" && n != null && n != " ");})
+			 }
+//		object = {}
+//		object[counter]=
+//			counter++
+	
 	
 	
 	
