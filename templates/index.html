@@ -1,0 +1,137 @@
+<!--
+To change this template use Tools | Templates.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.min.js"></script>
+	
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.3.5/tabletop.js"></script>	
+	
+    <title>Create a Twitter bot!</title>
+	
+	
+	<script>
+	/*	function init() {
+  Tabletop.init( { key: document.forms.form1.url.value,
+                   callback: showInfo,
+				  parseNumbers:true
+				 }) } 
+		*/
+		
+		
+		
+	var testData = null;
+		
+			function init() {
+  	Tabletop.init( { key: document.forms.form1.url.value,
+                   callback: function(data, tabletop) { testData = data; console.log("var testData is available") },
+				  simpleSheet: true }) }
+</script>
+
+</head>
+<body>
+	<div class = "container-fluid">
+		<div class ="row-fluid">
+			<div class = "col-xs-8">
+		
+			<form role = form id = "form1">
+				<div class = "form-group">
+					<label >Url of Google Spreadsheet</label><br/>
+					<input type = "text" value = "www.googs.com" name="url" id="url" SIZE=70 />
+					<button type="button" onclick = "init()">Submit Key</button>
+					<br/>
+					</div>
+					</form>
+		<form role = form id = "form3">
+			<div class = "form-group">
+				<label>Column Name 1</label>
+				<input type "text" value = "column1" name = "column1" id = "column1" SIZE=30 /> <br />
+				<label>Column Name 2</label>
+				<input type "text" value = "column2" name = "column2" id = "column2" SIZE=30 /> <br />
+				<label>Column Name 3</label>
+				<input type "text" value = "column3" name = "column3" id = "column3" SIZE=30 /> <br />
+				<button type ="button" onclick="setColNames()">
+					Set Column Names
+				</button>
+				
+			</div>		
+			
+		</form>		
+				
+				
+				
+		<form role = form id = "form2">
+			<div class ="form-group">
+			<label >Text of Tweet</label><br/>
+			<textarea value = "TWEEEETS" ROWS=6 COLS=70 value="blah" name = "blah" id = "tweet"></textarea>
+			<input type="submit" name = "sub1" id = "sub1"/>
+			</div>
+			
+			
+		<div id = "tweetPreview">
+			
+			</div>
+			
+			
+		</form>
+
+				
+			<button type="button" id="ajax">Tweet</button>
+			
+			
+	<script>
+	console.log("Column 1 = " + document.forms.form3.column1.value);	
+	
+	//columns into usable dat
+	
+	function setColNames(){
+	var column1 = document.forms.form3.column1.value;
+	var column1RowValue = testData[1].column1;
+		$("#tweet").append("{{" + column1 + "}}");
+	var column2 = document.forms.form3.column2.value;
+	var column2RowValue = testData[1].column2;
+			$("#tweet").append("{{" + column2 + "}}");
+	var column3 = document.forms.form3.column2.value;
+	var column3RowValue = testData[1].column3;
+			$("#tweet").append("{{" + column3 + "}}");
+		}
+
+
+  	var dataObject = [{'date': 'May 5', 'place': 'San Francisco', 'magnitude': '4.5'}, {'date': 'Jan 1', 'place': 'Taipei', 'magnitude': '6'}]
+  	var columns = {1:'date', 3:'magnitude', 5:'place'};
+  	var textInserts = {0:'An earthquake occurred on the date of ', 2:', at a magnitude of ', 4:', and in the location of '};
+	
+  	function tweet(dataObject, columns, textInserts) {
+	  console.log(dataObject);
+	  console.log(columns);
+	  console.log(textInserts);
+	  $.ajax({
+	  url: "/",
+	  type: "POST",
+	  contentType: "application/json",
+	  data: JSON.stringify({"data":dataObject, "columns":columns, "text_inserts":textInserts})
+	  }).done(function(){
+	    alert("Bot creation completed");
+	  });
+	}
+
+	$("#ajax").click(function() {
+		tweet(dataObject, columns, textInserts);
+	});
+
+
+	</script>
+	<br/>
+
+
+
+	</div>		
+</div>
+
+</body>
+</html>
