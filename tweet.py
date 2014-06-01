@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 
-# https://code.google.com/p/python-twitter/
-# dev.twitter.com
-
 import sys
 import os
 from os.path import exists
 from twython import Twython
 import time
-
 
 def tweet(data, columns, text_inserts):
     API_KEY = 'SviKWezy1ohjALJG91exYJ1qn'
@@ -20,24 +16,14 @@ def tweet(data, columns, text_inserts):
 
     text_segment_length = len(columns) + len(text_inserts)
     
-    # print "this is the full data: %r" % data
-    # print "this is the full columns: %r" % columns
-    # print "this is the full text: %r" % text_inserts
-
     for row in data:
         text = ""
-        # print row
-        # print "this is one row: %r" % row 
         for num in range(text_segment_length):
             if columns.get(str(num)):
                 text += row[columns[str(num)]]
-                # print text 
             else:
-                # print num
                 text += text_inserts[str(num)]
-                # print text
 
-        # print text
         twitter.update_status(status=text)
         time.sleep(5)
 

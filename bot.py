@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    # tweet.tweet("hi!!")
     return render_template("index.html")
 
 @app.route("/", methods=["POST"])
