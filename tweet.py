@@ -30,7 +30,7 @@ def tweet(data, columns, text_inserts):
                 column_counter += 1
 
         twitter.update_status(status=text)
-        time.sleep(2)
+        time.sleep(3)
 
 def main():
     dataObject = [{'date': 'May 5', 'place': 'San Francisco', 'magnitude': '4.5'}, {'date': 'Jan 1', 'place': 'Taipei', 'magnitude': '6'}]
