@@ -53,7 +53,7 @@ To change this template use Tools | Templates.
 				
 				<h1>BOTMAKER<span id="logo"><img src="css/botmaker-logo.png"></span></h1>
 				<p>Twitter bots are fun and easy! All you need to get started is a Google spreadsheet.</p>
-				<form role=form id="form1">
+				<form role="form" id="form1">
 					<div class= "form-group">
 						<label>"Key" of Google Spreadsheet</label><br/>
 						<input type= "text" class="form-control" placeholder="www.googs.com" value = 1rAYQnxVwRazvfeDWUjoGBfxkZpakRPkz6-g7FENFXZk name="url" id="url" />
@@ -62,10 +62,8 @@ To change this template use Tools | Templates.
 					</div>
 				</form>
 				
-		
-				
-		<form role = form id = "form2">
-			<div class ="form-group">
+		<form role="form" id="form2">
+			<div class="form-group">
 			<label >Text of Tweet</label><br/>
 			<textarea class="form-control" ROWS=6 COLS=70 name = "tweet" id = "tweet"></textarea>
 			<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button><br/>
@@ -73,21 +71,13 @@ To change this template use Tools | Templates.
 		</form>
 	
 		
-		<form role = form id = "form3">	
+		<form role="form" id="form3">	
 			<div class ="form-group">	
 				<label>Preview</label>	
-			<div id = "tweetPreview" class="form-control"></div>	
+			<div id="tweetPreview" class="form-control"></div>	
 			<button type="button" class="btn btn-lg btn-default" name="tweetPreviewButton" id="tweetPreviewButton" onclick="twitterBot.sendToPython()">Final Submit</button>
 			</div>
-		</form>
-	
-			
-	
-
-		
-				
-				
-			
+		</form>		
 	<script>
 	
 	//removes curly braces from array
