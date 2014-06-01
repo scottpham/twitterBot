@@ -28,7 +28,11 @@ def tweet(data, columns, text_inserts):
         time.sleep(5)
 
 def main():
-    tweet("hi again")
+    dataObject = [{'date': 'May 5', 'place': 'San Francisco', 'magnitude': '4.5'}, {'date': 'Jan 1', 'place': 'Taipei', 'magnitude': '6'}]
+    columns = {'1':'date', '3':'magnitude', '5':'place'};
+    textInserts = {'0':'An earthquake occurred on the date of ', '2':', at a magnitude of ', '4':', and in the location of '};
+
+    tweet(dataObject, columns, textInserts)
     print "tweeted successfully"
 
 if __name__ == "__main__":
