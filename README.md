@@ -44,10 +44,11 @@ Botmaker is a work in progress, but you should be able to get a version running 
 
 About
 ======
-BotMaker was created as part of the [Reynolds Journalism Institute Social Journalism Hackathon](http://www.rjionline.org/hackathon). The team includes:
-	- [Scott Pham](https://twitter.com/scottpham)
-	- [Amy Lee](https://twitter.com/ammlsf)
-	- [Maggie Shine](https://twitter.com/magksh)
+BotMaker was created as part of the [Reynolds Journalism Institute Social Journalism Hackathon](http://www.rjionline.org/hackathon). The team includes:  
+  - [Scott Pham](https://twitter.com/scottpham)  
+  - [Amy Lee](https://twitter.com/ammlsf)  
+  - [Maggie Shine](https://twitter.com/magksh)  
+    
 
 
 
