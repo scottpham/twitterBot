@@ -17,7 +17,7 @@ If you can use a Google spreadsheet, you can use BotMaker and roll your own Twit
 
 Use Cases
 ============
-The public service use cases are easy to imagine: bots that tweet out crimes, environmental data, earthquakes.  Some of these exist right now.  But the very best use cases are the ones we or you haven't even thought of yet! If making a bot is easy and quick, then ideas can come to you on the fly. Do you have unused data sets waiting for a story? Maybe a bot can get that out.  Are you scraping a site to gather statistics? Make use of those individual data paints and feed them to your bot!
+The public service use cases are easy to imagine: bots that tweet out crimes, environmental data, earthquakes.  Some of these exist right now.  But the very best use cases are the ones we or you haven't even thought of yet! If making a bot is easy and quick, then ideas can come to you on the fly. Do you have unused data sets waiting for a story? Maybe a bot can get that out.  Are you scraping a site to gather statistics? Make use of those individual data points and feed them to your bot!
 
 How to Use
 ==========
