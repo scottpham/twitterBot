@@ -45,5 +45,5 @@ About
 ======
 BotMaker was created as part of the [Reynolds Journalism Institute Social Journalism Hackathon](http://www.rjionline.org/hackathon). The team includes:  
   - [Scott Pham](https://twitter.com/scottpham)  
-  - [Amy Lee](www.linkedin.com/in/amylibra)  
+  - [Amy Lee](https://www.linkedin.com/in/amylibra)  
   - [Maggie Shine](https://twitter.com/magksh)
