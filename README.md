@@ -1,13 +1,13 @@
 BotMaker
 ==========
 
-In March, a medium-sized earthquake hit the Los Angeles area.  It's not a particularly uncommon thing, but there had been an earthquake-drought of sorts, so it warranted a write-up. The very first publication to break that story was the Los Angeles Times, [thanks to a news-writing bot written bot](http://www.slate.com/blogs/future_tense/2014/03/17/quakebot_los_angeles_times_robot_journalist_writes_article_on_la_earthquake.html) written by Ken Schwencke, a journalist and programmer for the paper.
+In March, a medium-sized earthquake hit the Los Angeles area.  It's not particularly uncommon, but there had been an earthquake-drought of sorts, so it warranted a write-up. The very first publication to break that story was the Los Angeles Times, [thanks to a news-writing bot written bot](http://www.slate.com/blogs/future_tense/2014/03/17/quakebot_los_angeles_times_robot_journalist_writes_article_on_la_earthquake.html) written by Ken Schwencke, a journalist and programmer for the paper.
 
 We're guessing that in the near future, a lot more stories will be broken by bots. It's likely that the writers of those bots won't be journalists and they won't work for traditional news publications.  But it doesn't have to be that way.
 
 Anxiety
 ========
-There's a lot of anxiety about bots in journalism. Journalists worry that bots might take their jobs one day. They think bots are antithetical to responsible journalism. We think it doesn't have to be that way.  We think bots should be about fun and exploration. Maybe someday the best bots will free the rest of us to focus on the stories that matter — the stories that use our full human faculties and require insight and judgment. For now, journalists just need to explore and have fun. 
+There's a lot of anxiety about bots in journalism. Journalists worry that bots might take their jobs one day. They think bots are antithetical to responsible journalism. But we think bots should be about fun and exploration. Maybe someday the best bots will free the rest of us to focus on the stories that matter — the stories that use our full human faculties and require insight and judgment. 
 
 Bots in Seconds
 ===============
@@ -23,7 +23,7 @@ How to Use
 ==========
 BotMaker is a work in progress, but you should be able to get a version running on your system with a little work.
 
-1. Make a twitter account
+1. Make a Twitter account
 	- We used [this primer from Source](https://source.opennews.org/en-US/articles/botmaking-primer/) for guidance. You'll need to register for an API key and copy your four authentication keys.
 
 2. Plug in your key values on tweet.py
