@@ -41,6 +41,29 @@ BotMaker is a work in progress, but you should be able to get a version running 
 4. Clone a copy of the app in your desktop and run it using Python in your terminal
   	- BotMaker is dependent on Python and the Twython library, [available here](https://github.com/ryanmcgrath/twython).
 
+To Do
+=======
+BotMaker is a working prototype but our team has a little more work to do:
+
+What we need to get to a decent version 1.0:
+- Clean up front end code
+- Parse input strings more cleanly with proper regex
+  - Generate proper arrays for backend ajax call
+- Rethink fake templating handlebars {{ }}--maybe variables are just words with different styling/coloring?
+- Redo CSS using boostrap customization best practices
+- Rethink how spreadsheet gets passed to backend--how can we deal with live data, i.e. a google sheet that changes?
+- Allow for more variation in tweet formation: i.e. tweets that contain
+- Allow user to input own twitter API Keys directly in the front-end
+- Hook up to heroku or something so user doesn't have to run python script in terminal
+
+Cool Future Features:
+- Build some kind of web scraping into the front end
+- Allow for conditional tweets (i.e. tweet only when certain values meet a condtion, or tweet different tweets for different values)
+- Let bot respond to mentions
+- Let bot search twitter for keywords and tweet at those accounts
+
+
+
 About
 ======
 BotMaker was created as part of the [Reynolds Journalism Institute Social Journalism Hackathon](http://www.rjionline.org/hackathon). The team includes:  
