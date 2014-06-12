@@ -52,7 +52,7 @@ What we need to get to a decent version 1.0:
 - Rethink fake templating handlebars {{ }}--maybe variables are just words with different styling/coloring?
 - Redo CSS using boostrap customization best practices
 - Rethink how spreadsheet gets passed to backend--how can we deal with live data, i.e. a google sheet that changes?
-- Allow for more variation in tweet formation: i.e. tweets that contain
+- Allow for more variation in tweet formation: i.e. tweets that contain different #s of text and variables
 - Allow user to input own twitter API Keys directly in the front-end
 - Hook up to heroku or something so user doesn't have to run python script in terminal
 
