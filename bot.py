@@ -17,5 +17,9 @@ def tweet_data():
     tweet.tweet(data, columns, text_inserts)
     return redirect(url_for("index"))
 
+@app.route("/about")
+def about_page():
+	return render_template("about.html")
+
 if __name__ == "__main__":
     app.run(debug = True)
