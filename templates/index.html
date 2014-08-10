@@ -1,0 +1,197 @@
+<!--
+To change this template use Tools | Templates.
+-->
+<!DOCTYPE html>
+<html>
+<body background="/static/img/robots.png">
+<head>
+	<style>
+
+	#tweetPreview {
+		width: 100%px;
+		height: 100px;
+		border: 1px solid gray;
+	}
+
+	#tweetPreview2 {
+	width: 100%px;
+	height: 100px;
+	border: 1px solid gray;
+	}
+				
+
+	</style>
+
+	<link rel="stylesheet" href="/static/css/bootstrap.css">
+	<link rel="stylesheet" href="/static/css/botmaker.css">
+	<link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.3.5/tabletop.js"></script>
+
+
+<!-- s	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+s	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+s	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js">	</script>
+	
+s	<script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.min.js"></script>
+	
+s	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.3.5/tabletop.js"></script>	
+ -->	
+
+
+    <title>Create a Twitter bot!</title>
+	
+	
+	<script>		
+	var twitterBot = {};	
+	var testData = null;
+			
+{% raw %}
+		function getColNames() {
+			var colNames = Object.keys(testData[1]);
+			$.each(colNames, function (index, value){
+				$("#tweet").append("{{" + value + "}} ");
+			}	
+			)
+		}
+{% endraw %}			
+		
+			function init() {
+  	Tabletop.init( { key: document.forms.form1.url.value,
+                   callback: function(data, tabletop) { 
+					   testData = data; 
+					   getColNames(); 
+					   console.log("var testData is available") 
+				   },
+				  simpleSheet: true }) }
+		
+		//TODO: testData to amy
+		
+</script>
+
+</head>
+<body>
+	<div class="container">
+			<div class="col-md-7 col-md-offset-3">
+				
+				<h1>BOTMAKER<span id="logo"><img src="/static/img/botmaker-logo.png"></span></h1>
+				<p>Twitter bots are fun and easy! All you need to get started is a Google spreadsheet.</p>
+				<form role=form id = "form1">
+					<div class = "form-group">
+						<label >"Key" of Google Spreadsheet</label><br/>
+						<input type = "text" class="form-control" placeholder="www.googs.com" value = 1rAYQnxVwRazvfeDWUjoGBfxkZpakRPkz6-g7FENFXZk name="url" id="url" />
+						<button type="button" class="btn btn-lg btn-default" onclick = "init()">Set the Key</button>
+						<br/>
+					</div>
+				</form>
+				
+		
+				
+		<form role = form id = "form2">
+			<div class ="form-group">
+			<label >Text of Tweet</label><br/>
+			<textarea class="form-control" ROWS=6 COLS=70 name = "tweet" id = "tweet"></textarea>
+			<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button><br/>
+			</div>
+		</form>
+	
+		
+		<form role = form id = "form3">	
+			<div class ="form-group">	
+				<label>Preview</label>	
+			<div id = "tweetPreview2" class="form-control"></div>	
+			<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "submitButton">Final Submit</button>
+			</div>
+		</form>
+	
+			
+	
+
+		
+				
+				
+			
+	<script>
+	
+	//removes curly braces from array
+	twitterBot.fixArray = function(myArray) {
+		var fixedArray = [];
+		$.each(myArray, function (index, value){
+			len = value.length;
+			var x = myArray[index].replace(value, value.slice(2,len-2));
+			fixedArray.push(x);
+			} )
+		console.log("fixed array = " + fixedArray);
+		return fixedArray;	
+	}
+	
+	//generates preview tweet
+	twitterBot.tweetPreview = function () {
+		var tweetPreviewString = document.forms.form2.tweet.value;
+		this.tweetPreviewString = tweetPreviewString; //raw input of the twitter template box
+		{% raw %} var myRe = /{{.*?}}/g; {% endraw %}
+		myArray = tweetPreviewString.match(myRe);
+		this.fixedArray = this.fixArray(myArray);
+		$.each(this.fixedArray, function(index, value){
+			console.log(tweetPreviewString);
+{% raw %}			tweetPreviewString = tweetPreviewString.replace("{{" + value + "}}", testData[1][value]); {% endraw %}
+		console.log(testData[1][value]);
+								   });
+		console.log(tweetPreviewString);
+		$("#tweetPreview2").html(tweetPreviewString); }
+
+		//generates clean lists for python
+		twitterBot.sendToPython = function (){ 
+			x = this.fixedArray; //clean array of dict keys, send this to python it's good
+			{% raw %} var myRe = /{{(.*?)}}/g; {% endraw %}
+			var cleanTweetString = this.tweetPreviewString.split(myRe);
+			this.cleanTweetArray = $(cleanTweetString).not(this.fixedArray).get();
+			this.cleanTweetArray = jQuery.grep(this.cleanTweetArray, function(n, i){
+				return (n !== "" && n != null && n != " ");}) //clean array of plain text twitter stuff
+			console.log("Array of column names = " + this.fixedArray); //goes to python
+			console.log("type of fixed array =" + typeof this.fixedArray);
+			console.log("Array of plain text strings = " + this.cleanTweetArray); //goes to python
+			console.log("Tweet Array before I fuck with it: " + cleanTweetString); //array of both col names and tweets
+			
+		this.columns = this.fixedArray;
+		this.textInserts = this.cleanTweetArray;
+			
+	/**	for (var counter = 0; counter <= cleanTweetString.length;) {
+			this.cleanTweetArray[counter] ? this.textInserts[counter] = this.cleanTweetArray[counter]: null;
+			counter++;	
+			this.fixedArray[counter] ? this.columns[counter] = this.fixedArray[counter]: null;
+	 } **/
+	}
+
+
+	 function tweet(dataObject, columns, textInserts) {
+	  $.ajax({
+	  url: "/",
+	  type: "POST",
+	  contentType: "application/json",
+	  data: JSON.stringify({"data":dataObject, "columns":columns, "text_inserts":textInserts})
+	  }).done(function(){
+	    alert("Bot creation completed");
+	  });
+	}
+
+	$("#submitButton").click(function() {
+		twitterBot.sendToPython();
+		var columns = twitterBot.columns;
+		var textInserts = twitterBot.textInserts; 
+		console.log(testData);
+		console.log(twitterBot.columns);
+		console.log(twitterBot.textInserts);
+		tweet(testData, columns, textInserts);
+	});
+
+	
+	</script>
+	</div>		
+</div>
+
+</body>
+</html>
