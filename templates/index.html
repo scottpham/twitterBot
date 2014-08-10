@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block body %}
+	<h1 class="masthead">BOTMAKER<span id="logo"><img src="static/css/botmaker-logo.png"></span></h1>
+	<p>Twitter bots are fun and easy! All you need to get started is a Google spreadsheet.</p>
+
+	<form role=form id="form1">
+		<div class= "form-group">
+			<label>"Key" of Google Spreadsheet</label><br/>
+			<input type= "text" class="form-control" placeholder="www.googs.com" value=1rAYQnxVwRazvfeDWUjoGBfxkZpakRPkz6-g7FENFXZk name="url" id="url" />
+			<button type="button" class="btn btn-default" onclick = "init()">Set the Key</button>
+			<br/>
+			</div>
+	</form>
+						
+	<form role=form id="form2">
+		<div class ="form-group">
+		<label>Text of Tweet</label><br/>
+		<textarea class="form-control" ROWS=6 COLS=70 name="tweet" id="tweet"></textarea>
+		<button type="button" class="btn btn-default" name="tweetPreviewButton" id="tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button>
+		<br/>
+		</div>
+	</form>
+		
+	<form role=form id="form3">	
+		<div class="form-group">	
+		<label>Preview</label>	
+		<div id="tweetPreview" class="form-control"></div>	
+		<button type="button" class="btn btn-default" name="tweetPreviewButton" id="tweetPreviewButton" onclick="twitterBot.sendToPython()">Tweet it!</button>
+		<br/>
+		</div>
+	</form>
+
+	<p><a href="/about">Learn more about this project.</a></p>
+
+	</div>		
+</div>
+{% endblock %}
