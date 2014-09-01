@@ -58,12 +58,12 @@ What we need to get to a decent version 1.0:
 
 Cool Future Features:
 - Build some kind of web scraping into the front end
+    - connect to kimonolabs or other UI-based web scraping (optional Google spreadsheets proxy)
 - Allow for conditional tweets (i.e. tweet only when certain values meet a condtion, or tweet different tweets for different values)
 - Let bot respond to mentions
 - Let bot search twitter for keywords and tweet at those accounts
 - deploy to Heroku
 - user inserts own Twitter account credentials and include instructions on how to obtain
-- connect to kimonolabs or other UI-based web scraping (optional Google spreadsheets proxy)
 
 
 About
