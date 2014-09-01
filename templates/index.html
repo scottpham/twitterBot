@@ -11,97 +11,107 @@
 			<br/>
 		</div>
 	</form>
-			
+
 	<form role = form id = "form2">
 		<div class ="form-group">
-		<label >Text of Tweet</label><br/>
-		<textarea class="form-control" ROWS=6 COLS=70 name = "tweet" id = "tweet"></textarea>
-		<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button><br/>
+			<label >Text of Tweet</label><br/>
+			<textarea class="form-control" ROWS=6 COLS=70 name = "tweet" id = "tweet"></textarea>
+			<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button><br/>
 		</div>
 	</form>
-	
+
+
 	<form role = form id = "form3">	
 		<div class ="form-group">	
 			<label>Preview</label>	
-		<div id = "tweetPreview2" class="form-control"></div>	
-		<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "submitButton">Final Submit</button>
+			<div id = "tweetPreview2" class="form-control"></div>	
+			<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "submitButton">Final Submit</button>
 		</div>
 	</form>
-			
+		</div>		
+	</div>
+
 <script>
-	
-//removes curly braces from array
-twitterBot.fixArray = function(myArray) {
+
+//method removes braces from an array of braced column names
+twitterBot.removeBraces = function(myArray) {
 	var fixedArray = [];
 	$.each(myArray, function (index, value){
 		len = value.length;
 		var x = myArray[index].replace(value, value.slice(2,len-2));
 		fixedArray.push(x);
-		} )
-	console.log("fixed array = " + fixedArray);
-	return fixedArray;	
-}
+	} )
+	return fixedArray;
+	}
 
 //generates preview tweet
+
 twitterBot.tweetPreview = function () {
-	var tweetPreviewString = document.forms.form2.tweet.value;
-	this.tweetPreviewString = tweetPreviewString; //raw input of the twitter template box
-	{% raw %} var myRe = /{{.*?}}/g; {% endraw %}
-	myArray = tweetPreviewString.match(myRe);
-	this.fixedArray = this.fixArray(myArray);
-	$.each(this.fixedArray, function(index, value){
-		console.log(tweetPreviewString);
-{% raw %}			tweetPreviewString = tweetPreviewString.replace("{{" + value + "}}", testData[1][value]); {% endraw %}
-	console.log(testData[1][value]);
-							   });
-	console.log(tweetPreviewString);
+	this.dict = [];
+	this.userInput = document.forms.form2.tweet.value;
+	var tweetPreviewString = this.userInput;
+	//write a regex to capture each column name
+	{% raw %} var myRe = /({{)[^\[{\]]+(}})/g; {% endraw %}
+	//store in columnArray the matched strings
+	var columnArray = this.userInput.match(myRe);
+
+	this.columnsNoBraces = this.removeBraces(columnArray);
+
+	//replaces whatever is in curly braces with value from json
+	$.each(this.columnsNoBraces, function(index, value){
+		{% raw %}	tweetPreviewString = tweetPreviewString.replace("{{" + value + "}}", testData[1][value]); 
+		{% endraw %}
+	})
+
+	//generates final arrays for backend
+	{% raw %}
+	var userInputArray = this.userInput.replace(/({{)|(}})/g, '|').split('|');
+	{% endraw %}
+
+	//removes empty elements created by split method
+	function removeEmpty(element){
+		return element.match(/./);
+	}
+	//run remove empty function
+	var userInputArray = userInputArray.filter(removeEmpty);
+
+	//constructs final dictionary for ajax call
+	$.each(userInputArray, function(index, value){
+		if(value in columnArray){
+			twitterBot.dict.push({'stringFromDoc': value});
+		}
+		else{
+			twitterBot.dict.push({'userString': value});
+		}
+	})
+
+	console.log("this.dict = ");
+	console.log(this.dict);
+	//end final aray code	
+
+	//puts the tweet preview string in the preview box
 	$("#tweetPreview2").html(tweetPreviewString); }
 
-//generates clean lists for python
-twitterBot.sendToPython = function (){ 
-	x = this.fixedArray; //clean array of dict keys, send this to python it's good
-	{% raw %} var myRe = /{{(.*?)}}/g; {% endraw %}
-	var cleanTweetString = this.tweetPreviewString.split(myRe);
-	this.cleanTweetArray = $(cleanTweetString).not(this.fixedArray).get();
-	this.cleanTweetArray = jQuery.grep(this.cleanTweetArray, function(n, i){
-		return (n !== "" && n != null && n != " ");}) //clean array of plain text twitter stuff
-	console.log("Array of column names = " + this.fixedArray); //goes to python
-	console.log("type of fixed array =" + typeof this.fixedArray);
-	console.log("Array of plain text strings = " + this.cleanTweetArray); //goes to python
-	console.log("Tweet Array before I fuck with it: " + cleanTweetString); //array of both col names and tweets
-	
-this.columns = this.fixedArray;
-this.textInserts = this.cleanTweetArray;
-		
-/**	for (var counter = 0; counter <= cleanTweetString.length;) {
-		this.cleanTweetArray[counter] ? this.textInserts[counter] = this.cleanTweetArray[counter]: null;
-		counter++;	
-		this.fixedArray[counter] ? this.columns[counter] = this.fixedArray[counter]: null;
- } **/
+//ajax call--is called last upon submit
+function tweet(dataObject, tweetDict) {
+	$.ajax({
+		url: "/",
+		type: "POST",
+		contentType: "application/json",
+		data: JSON.stringify({"data":dataObject, "tweetDict":tweetDict}) //note change in ajax call here
+	}).done(function(){
+		alert("Bot creation completed");
+	});
 }
 
-
-function tweet(dataObject, columns, textInserts) {
-  $.ajax({
-  url: "/",
-  type: "POST",
-  contentType: "application/json",
-  data: JSON.stringify({"data":dataObject, "columns":columns, "text_inserts":textInserts})
-  }).done(function(){
-    alert("Bot creation completed");
-  });
-}
 
 $("#submitButton").click(function() {
 	twitterBot.sendToPython();
-	var columns = twitterBot.columns;
-	var textInserts = twitterBot.textInserts; 
-	console.log(testData);
-	console.log(twitterBot.columns);
-	console.log(twitterBot.textInserts);
-	tweet(testData, columns, textInserts);
+	tweet(twitterBot.dict); 
 });
+
 </script>
+
 
 	</div>		
 </div>
