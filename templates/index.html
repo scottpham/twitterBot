@@ -16,7 +16,7 @@
 		<div class ="form-group">
 			<label >Text of Tweet</label><br/>
 			<textarea class="form-control" ROWS=6 COLS=70 name = "tweet" id = "tweet"></textarea>
-			<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button><br/>
+			<button type="button" class="btn btn-lg btn-default" id = "tweetPreviewButton" onclick="twitterBot.tweetPreview()">Preview</button><br/>
 		</div>
 	</form>
 
@@ -25,7 +25,7 @@
 		<div class ="form-group">	
 			<label>Preview</label>	
 			<div id = "tweetPreview2" class="form-control"></div>	
-			<button type="button" class="btn btn-lg btn-default" name = "tweetPreviewButton" id = "submitButton">Final Submit</button>
+			<button type="button" class="btn btn-lg btn-default" id = "submitButton">Final Submit</button>
 		</div>
 	</form>
 		</div>		
@@ -78,10 +78,10 @@ twitterBot.tweetPreview = function () {
 	//constructs final dictionary for ajax call
 	$.each(userInputArray, function(index, value){
 		if(value in columnArray){
-			twitterBot.dict.push({'stringFromDoc': value});
+			twitterBot.dict.push(value);
 		}
 		else{
-			twitterBot.dict.push({'userString': value});
+			twitterBot.dict.push(value );
 		}
 	})
 
@@ -106,7 +106,6 @@ function tweet(tweetDict) {
 
 
 $("#submitButton").click(function() {
-	twitterBot.sendToPython();
 	tweet(twitterBot.dict); 
 	console.log(twitterBot.dict);
 });

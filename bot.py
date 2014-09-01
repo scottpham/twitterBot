@@ -1,6 +1,5 @@
-from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for
 import tweet
-import datetime
 
 app = Flask(__name__)
 
@@ -11,12 +10,8 @@ def index():
 @app.route("/", methods=["POST"])
 def tweet_data():
     body = request.json
-    data = body['data']
-    columns = body['tweetDict']
-    # text_inserts = body['text_inserts']
-    tweet.tweet(data, columns)
-    print "date is: %s" % data
-    print "columns is: %s" % columns
+    tweet_list = body['tweetDict']
+    tweet.tweet(tweet_list)
     return redirect(url_for("index"))
 
 @app.route("/about")
