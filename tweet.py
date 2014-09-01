@@ -33,7 +33,8 @@ def tweet(data, columns, text_inserts):
         time.sleep(3)
 
 def main():
-    dataObject = [{'date': 'May 5', 'place': 'San Francisco', 'magnitude': '4.5'}, {'date': 'Jan 1', 'place': 'Taipei', 'magnitude': '6'}]
+    dataObject = [{'date': 'May 5', 'place': 'San Francisco', 'magnitude': '4.5'}, {'date': 'Jan 1', 'place': 'Taipei',
+                                                                                    'magnitude': '6'}]
     columns = ['date', 'magnitude', 'place']
     textInserts = ['An earthquake occurred on the date of ', ', at a magnitude of ', ', and in the location of ']
 

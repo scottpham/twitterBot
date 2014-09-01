@@ -12,14 +12,16 @@ def index():
 def tweet_data():
     body = request.json
     data = body['data']
-    columns = body['columns']
-    text_inserts = body['text_inserts']
-    tweet.tweet(data, columns, text_inserts)
+    columns = body['tweetDict']
+    # text_inserts = body['text_inserts']
+    tweet.tweet(data, columns)
+    print "date is: %s" % data
+    print "columns is: %s" % columns
     return redirect(url_for("index"))
 
 @app.route("/about")
 def about_page():
-	return render_template("about.html")
+    return render_template("about.html")
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
