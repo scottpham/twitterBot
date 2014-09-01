@@ -15,7 +15,7 @@
 	<script>		
 	var twitterBot = {};	
 	var testData = null;
-			
+	{% raw %}		
 		function getColNames() {
 			var colNames = Object.keys(testData[1]);
 			$.each(colNames, function (index, value){
@@ -23,7 +23,7 @@
 			}	
 			)
 		};
-			
+	{% endraw %}	
 		
 		function init() {
 			Tabletop.init( { key: document.forms.form1.url.value,
