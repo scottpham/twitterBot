@@ -93,12 +93,12 @@ twitterBot.tweetPreview = function () {
 	$("#tweetPreview2").html(tweetPreviewString); }
 
 //ajax call--is called last upon submit
-function tweet(dataObject, tweetDict) {
+function tweet(tweetDict) {
 	$.ajax({
 		url: "/",
 		type: "POST",
 		contentType: "application/json",
-		data: JSON.stringify({"data":dataObject, "tweetDict":tweetDict}) //note change in ajax call here
+		data: JSON.stringify({"tweetDict":tweetDict}) //note change in ajax call here
 	}).done(function(){
 		alert("Bot creation completed");
 	});
@@ -108,6 +108,7 @@ function tweet(dataObject, tweetDict) {
 $("#submitButton").click(function() {
 	twitterBot.sendToPython();
 	tweet(twitterBot.dict); 
+	console.log(twitterBot.dict);
 });
 
 </script>
