@@ -75,19 +75,28 @@ twitterBot.tweetPreview = function () {
 	//run remove empty function
 	var userInputArray = userInputArray.filter(removeEmpty);
 
-	//constructs final dictionary for ajax call
-	$.each(userInputArray, function(index, value){
-		if(value in columnArray){
-			twitterBot.dict.push(value);
-		}
-		else{
-			twitterBot.dict.push(value );
-		}
-	})
+	//constructs final array for ajax call
+	$.each(testData, function(index, value) {
+		var sheetIndex = index;
+		var sheetValue = value;
+		var str = '';
+		$.each(userInputArray, function(i, val){
+			if(sheetValue[val]){
+				var output = sheetValue[val];
+				str += output;
+			}
+			else{
+				str += (val);
+			}
+		});
+		twitterBot.dict[index] = str;
+	});
 
+	/* //check on dictionary 
 	console.log("this.dict = ");
 	console.log(this.dict);
-	//end final aray code	
+	//end final aray code
+	*/
 
 	//puts the tweet preview string in the preview box
 	$("#tweetPreview2").html(tweetPreviewString); }
@@ -104,10 +113,10 @@ function tweet(tweetDict) {
 	});
 }
 
-
+//send dict to backend
 $("#submitButton").click(function() {
 	tweet(twitterBot.dict); 
-	console.log(twitterBot.dict);
+	//console.log(twitterBot.dict);
 });
 
 </script>
