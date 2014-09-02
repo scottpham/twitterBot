@@ -19,10 +19,10 @@
 		function getColNames() {
 			var colNames = Object.keys(testData[1]);
 			$.each(colNames, function (index, value){
-				$("#tweet").append("{{" + value + "}} ");
-			}	
-			)
-		};
+				if (value !== "rowNumber") {
+					$("#tweet").append("{{" + value + "}} ");
+				}
+			})};
 	{% endraw %}	
 		
 		function init() {
